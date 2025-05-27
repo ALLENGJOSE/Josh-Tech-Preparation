@@ -1,0 +1,37 @@
+public class Solution 
+{
+	public static boolean detectAndRemoveCycle(Node head) 
+	{
+		// Write your code here.
+		Node slow=head;
+		Node fast=head;
+
+		while(fast.next!=null && fast.next.next!=null){
+			slow=slow.next;
+			fast=fast.next.next;
+
+			if(slow==fast){
+				removeCycle(head,slow);
+				return true;
+			}
+		}
+		return false;
+		
+	}
+	public static void removeCycle(Node head, Node meetpoint){
+
+		Node start=head;
+
+		while(start!=meetpoint){ // detected the starting point
+			start=start.next;
+			meetpoint=meetpoint.next;
+		}
+
+		Node prev =meetpoint;    //find the node that points to starting node of cycle
+		while(prev.next!=start){
+			prev=prev.next;
+		}
+
+		prev.next=null;
+	}
+}
